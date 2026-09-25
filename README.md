@@ -1,0 +1,1 @@
+# cecistyle-operations-platform
