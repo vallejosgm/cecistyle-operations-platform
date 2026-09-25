@@ -6,6 +6,10 @@ CeciStyle Operations Platform is a full-stack business management system develop
 
 This repository is a **sanitized portfolio showcase**, not the production application. It documents selected architecture, engineering decisions, business rules, and representative code patterns without publishing customer data, credentials, production configuration, or the complete proprietary codebase.
 
+## Project History
+
+CeciStyle is an established, evolving production system rather than a project created specifically for this portfolio. Development began approximately five years before this showcase was organized, and the application has grown alongside the operational needs of the business. The recent commits in this repository reflect the creation and organization of the **portfolio showcase**, not the beginning of the underlying software project. The production application and its development history remain in a separate private repository.
+
 ## Engineering Focus
 
 - PHP and Laravel application architecture
