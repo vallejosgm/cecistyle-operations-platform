@@ -30,6 +30,7 @@ This repository is a **sanitized portfolio showcase**, not the production applic
 | [Inventory & Barcode Tracking](docs/case-studies/inventory-and-barcode-tracking.md) | Service layer, filtering, lifecycle controls, barcode-assisted operations |
 | [Payments & Square](docs/case-studies/payments-and-square.md) | External payment synchronization, transactional business rules |
 | [Alteration Operations](docs/case-studies/alteration-operations.md) | Domain workflow, database transactions, production planning, garment custody |
+| [Customer Conflict Resolution](docs/case-studies/customer-conflict-strategy.md) | Strategy Pattern, identity resolution, concurrency, data integrity |
 
 ## Architecture
 
