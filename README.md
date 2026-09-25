@@ -40,7 +40,7 @@ CeciStyle is an established, evolving production system rather than a project cr
 
 The production system follows Laravel conventions while organizing larger business capabilities into domain-oriented modules. Controllers coordinate HTTP workflows, Form Requests validate input, service classes encapsulate business logic, Eloquent models represent the domain, and migrations enforce relational integrity.
 
-See [Architecture Overview](docs/architecture.md).
+See [Architecture Overview](docs/architecture.md), [Security Design](docs/security.md), and [Selected Code Samples](docs/code-samples.md).
 
 ## Testing
 
