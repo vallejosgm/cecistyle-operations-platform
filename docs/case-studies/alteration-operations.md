@@ -4,6 +4,13 @@
 
 An alterations business must coordinate more than a customer and an appointment. A single order can contain multiple garments, each garment can contain multiple jobs, paid work must be distinguished from pending work, production effort must be distributed across fitting milestones, and the physical garment must remain traceable while it moves through the shop.
 
+<table>
+  <tr>
+    <td width="50%"><img src="../images/06-alteration-order.png" alt="Alteration order"></td>
+    <td width="50%"><img src="../images/08-garment-work-ticket.png" alt="Garment work ticket"></td>
+  </tr>
+</table>
+
 ## Solution
 
 The Alteration Operations module models this workflow as related domain records rather than a single status field.
@@ -25,11 +32,13 @@ Payment matching locks the selected alteration records for update and verifies t
 - a payment is not reused by another alteration order; and
 - the selected work does not exceed the available payment amount.
 
-After a successful match, the selected work is marked paid and the order moves into production.
+After a successful match, the selected work is marked paid and the order moves into production. A sanitized excerpt is available in [Selected Code Samples](../code-samples.md#payment-matching--transaction--row-lock).
 
 ### Production milestones
 
 Workload can be allocated across try-on and pickup milestones. This makes the production calendar represent portions of the garment's workload rather than duplicating the entire workload at every appointment.
+
+![Production capacity calendar](../images/07-production-calendar.png)
 
 ### Garment chain of custody
 
