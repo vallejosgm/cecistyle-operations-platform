@@ -6,11 +6,19 @@ A payment appearing in the payment system does not automatically identify which 
 
 ## Verified Business Logic
 
-The Alteration Operations service performs payment matching inside a database transaction and locks selected alteration records for update.
+The Alteration Operations service performs payment matching inside a database transaction. Selected `GarmentAlteration` rows are constrained to the current order and loaded with `lockForUpdate()` before their payment state can change.
 
-Before creating a payment batch it verifies ownership, pending status, prior use of the transaction, the amount already matched, and the remaining available payment amount. Selected work cannot be authorized beyond the value available from the payment.
+Before creating a payment batch, the service verifies that:
 
-After a valid match, the payment batch is recorded, the selected jobs are marked paid, and the alteration order can move into production.
+- every selected job belongs to the current alteration order;
+- only pending jobs can be matched;
+- the Square transaction is not already linked to another alteration order;
+- previously matched value is included when calculating the remaining amount; and
+- the selected work does not exceed the payment value still available.
+
+After a valid match, a `PaymentBatch` is recorded, the selected jobs are marked paid, and the alteration order moves into production.
+
+See the sanitized transaction and row-lock excerpt in [Selected Code Samples](../code-samples.md#payment-matching--transaction--row-lock).
 
 ## Engineering Concepts
 
