@@ -4,6 +4,8 @@
 
 Public booking can receive an email and phone number that point to different existing customer records. Automatically overwriting or merging customer data would risk corrupting historical customer information.
 
+![Customer identity conflict resolution](../images/05-customer-conflict-resolution.png)
+
 ## Design
 
 The production application separates identity detection from conflict resolution.
@@ -12,14 +14,29 @@ During booking, customer identity is normalized and evaluated. If email and phon
 
 Conflict resolution uses the **Strategy Pattern**.
 
-A common `CustomerConflictResolutionStrategy` contract defines the resolution operation. A `CustomerConflictResolutionManager` selects one of four verified strategies:
+A common `CustomerConflictResolutionStrategy` contract defines the resolution operation. `CustomerConflictResolutionManager` selects one of four verified concrete strategies:
 
 - `LinkEmailCustomerResolution`
 - `LinkPhoneCustomerResolution`
 - `CreateNewCustomerResolution`
 - `UpdateExistingCustomerResolution`
 
+The verified production structure is:
+
+```text
+app/Modules/Booking/CustomerConflict/
+├── Contracts/CustomerConflictResolutionStrategy.php
+├── Services/CustomerConflictResolutionManager.php
+└── Strategies/
+    ├── LinkEmailCustomerResolution.php
+    ├── LinkPhoneCustomerResolution.php
+    ├── CreateNewCustomerResolution.php
+    └── UpdateExistingCustomerResolution.php
+```
+
 This allows each resolution behavior to own its validation and mutation rules while the caller works through a common interface.
+
+See the sanitized implementation excerpts in [Selected Code Samples](../code-samples.md#strategy-pattern--customer-conflict-resolution).
 
 ## Concurrency and Data Integrity
 
@@ -29,7 +46,9 @@ Customer creation also handles unique-constraint races: if another request creat
 
 ## Testing
 
-The production repository contains a unit test for `CustomerConflictResolutionManager` that verifies selection of all four strategies and rejection of unsupported resolution types.
+The production repository contains `tests/Unit/CustomerConflictResolutionManagerTest.php`. It constructs the manager with all four concrete strategies, verifies each supported mapping, and expects a `LogicException` for an unsupported resolution type.
+
+A trimmed test excerpt is included in [Selected Code Samples](../code-samples.md#testing-the-strategy-selection).
 
 ## Engineering Value
 
