@@ -103,7 +103,7 @@ Domain Services + Strategies
             ↓
 Eloquent Models + Transactions
             ↓
-MySQL · Square · S3-compatible storage · PDF generation
+MySQL · Square · Laravel Filesystem · PDF generation
 ```
 
 Detailed documentation:
@@ -118,10 +118,10 @@ Detailed documentation:
 
 | Evidence | Engineering concern | Details |
 | --- | --- | --- |
-| Customer conflict strategies | Explicit, extensible identity-resolution behavior | [Case study](docs/case-studies/customer-conflict-strategy.md) · [Code samples](docs/code-samples.md#strategy-pattern--customer-conflict-resolution) |
+| Customer conflict strategies | Explicit, extensible identity-resolution behavior | [Case study](docs/case-studies/customer-conflict-strategy.md) · [Code](docs/code-samples.md#strategy-pattern--customer-conflict-resolution) |
 | Alteration order service | Transactional creation of connected operational records | [Case study](docs/case-studies/alteration-operations.md) |
-| Payment matching | Row locking, ownership checks, reuse prevention, and amount validation | [Code samples](docs/code-samples.md#payment-matching-integrity) |
-| Inventory service layer | Transaction boundaries, file cleanup, filtering, and audit metadata | [Case study](docs/case-studies/inventory-and-barcode-tracking.md) |
+| Payment matching | Row locking, ownership checks, reuse prevention, and amount validation | [Code](docs/code-samples.md#payment-matching--transaction--row-lock) · [Case study](docs/case-studies/payments-and-square.md) |
+| Inventory service layer | Transaction boundaries, file cleanup, filtering, and audit metadata | [Code](docs/code-samples.md#inventory--databasefile-consistency) · [Case study](docs/case-studies/inventory-and-barcode-tracking.md) |
 | Application controls | Authenticated sessions, roles, throttling, validation, and no-store responses | [Security design](docs/security.md) |
 | Relational model | Orders, garments, work, payments, media, and location events | [Database design](docs/database-design.md) |
 
@@ -141,11 +141,11 @@ return match ($resolutionType) {
 };
 ```
 
-A dedicated PHPUnit unit test verifies the four mappings and the unsupported-resolution failure case. Additional excerpts are available in [Selected Code Samples](docs/code-samples.md).
+The production implementation contains the common strategy contract, four concrete strategy classes, a resolution manager, and a dedicated PHPUnit unit test for the four mappings and unsupported-resolution failure case. See [Selected Code Samples](docs/code-samples.md#strategy-pattern--customer-conflict-resolution) for the verified component structure and test excerpt.
 
 ## Testing Evidence
 
-The production repository's integrated alteration-operations release reported **53 passing tests and 219 assertions** when merged. This showcase does not claim independent coverage percentages and does not contain the complete production test suite.
+The production repository's integrated Alteration Operations release reported **53 passing tests and 219 assertions** at merge time. This is a historical verification point for that release; it is not a code-coverage claim or a guarantee about later commits. This showcase does not contain the complete production test suite.
 
 See the documented test approach in [Testing Strategy](docs/testing.md).
 
@@ -162,7 +162,7 @@ See the documented test approach in [Testing Strategy](docs/testing.md).
 
 ## Technology
 
-PHP 8.2+ · Laravel 12 · MySQL · Blade · JavaScript · Vite · PHPUnit · Square SDK · AWS S3-compatible Laravel filesystem integration · DomPDF · html5-qrcode
+PHP 8.2+ · Laravel 12 · MySQL · Blade · JavaScript · Vite · PHPUnit · Square SDK · Laravel filesystem with S3 driver support · DomPDF · html5-qrcode
 
 ## Repository Scope
 
@@ -174,5 +174,3 @@ No customer records, uploaded customer media, environment files, API keys, payme
 
 **Gean Vallejos**  
 Full-Stack Web Developer — PHP, Laravel, MySQL & JavaScript
-
-*New to Upwork, not new to software.*
